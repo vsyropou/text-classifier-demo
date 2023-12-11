@@ -100,7 +100,7 @@ class LocalArtifactory(IArtifactory, dict):
         # we use this for saving matplotlib figures
         try:
             callable(self.uri)
-        except Exception as err:
+        except Exception:
             raise IOError(f"Cannot save external file to '{self.uri}'")
         logging.info("Saved callable")
 

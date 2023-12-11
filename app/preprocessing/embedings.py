@@ -1,5 +1,6 @@
 import abc
 import logging
+import os
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
@@ -7,7 +8,6 @@ from typing import Any
 import cloudpickle
 import numpy as np
 import tensorflow_hub
-import tensorflow_text
 from dotenv import load_dotenv
 from keras import layers as LA
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -15,7 +15,6 @@ from tqdm import tqdm
 
 load_dotenv()
 
-import os
 
 EMERGENCY_PATH = Path(os.environ["EMERGENCY_EMBEDINGS_MATRIX_PATH"])
 
@@ -79,8 +78,7 @@ def embedings_layer_keras(
     return LA.Embedding(**args)
 
 
-# NOTE: Belo this point it was lasty minute experimentation
-# This would not be dumped like this in a production level code base
+# NOTE: Below this point it is work in progress
 class IEncoder(abc.ABC):
     @abc.abstractmethod
     def fit(self, data):
@@ -117,14 +115,9 @@ class TfIdfEncoder(IEncoder):
         return EncoderLayer(self)
 
 
-import os
-
-
 @dataclass
 class MuseEncoder(IEncoder):
-    model_url: str = (
-        "https://tfhub.dev/google/universal-sentence-encoder-multilingual-large/3"
-    )
+    model_url: str = "https://tfhub.dev/google/universal-sentence-encoder-multilingual-large/3"
     cache: dict[str, np.array] = field(default_factory=lambda: {})
 
     def fit(self, data, batch_size: int = 50, from_cache: bool = True):

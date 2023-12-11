@@ -1,6 +1,7 @@
-import pytest
-from app.preprocessing.tokenization import KerasTokenizer
 import numpy as np
+import pytest
+
+from app.preprocessing.tokenization import KerasTokenizer
 
 
 @pytest.mark.parametrize(

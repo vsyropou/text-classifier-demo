@@ -1,16 +1,18 @@
-import pytest
 import numpy as np
+import pytest
 
-from app.preprocessing.preprocess_data import remove_digits, order_labels, inverse_propensity_weights
+from app.preprocessing.preprocess_data import (
+    inverse_propensity_weights,
+    order_labels,
+    remove_digits,
+)
 
 digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 
 @pytest.mark.parametrize("digit", argvalues=digits, ids=digits)
 def test_remove_remove_digits(digit):
-    sentence = [
-        "This 1 is a 2 sentence 4 that 3 has a 5 digits 6 statered 7 arround 8 9 0"
-    ]
+    sentence = ["This 1 is a 2 sentence 4 that 3 has a 5 digits 6 statered 7 arround 8 9 0"]
 
     clean_sentence = remove_digits(sentence)
 
@@ -30,9 +32,7 @@ def test_remove_remove_digits(digit):
 def test_order_labels(raw, excpected):
     result = order_labels(np.array([raw]))[0]
 
-    assert (
-        result == excpected
-    ), f"Labels, {result}, are wrongly ordered, should be {excpected} "
+    assert result == excpected, f"Labels, {result}, are wrongly ordered, should be {excpected} "
 
 
 @pytest.mark.parametrize(

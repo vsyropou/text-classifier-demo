@@ -23,6 +23,7 @@ load_dotenv()
 
 
 # TODO: This configurations class deserves a bit more tidying up / refactoring
+
 class WorkflowConf(BaseModel):
     model_config = ConfigDict(frozen=True)
     # TODO:  frozen does not work as I remmeber, plus arguments can be mutated some times

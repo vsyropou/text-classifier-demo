@@ -1,6 +1,5 @@
 """
-This file gives you some shared resources for your tests.
-You could also add things that should be executed on startup here (e.g database related things).
+Here we configure our fixtures
 """
 
 import tempfile
@@ -9,7 +8,6 @@ from typing import Generator
 
 import pytest
 from fastapi.testclient import TestClient
-
 
 from app.api.api import app
 from app.artifactory import LocalArtifactory
@@ -29,4 +27,3 @@ def local_artifactory() -> Generator:
         yield LocalArtifactory(uri=tmpdir.name)
     finally:
         tmpdir.cleanup()
-

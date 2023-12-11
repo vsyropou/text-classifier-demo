@@ -12,24 +12,23 @@ Here are some request examples for the command line:
 
 predict endpoit:
 
-    curl 
+    curl
         -d '{
 
-            }'  
-        -H "Content-Type: applicatiion/json" 
-        -X 
+            }'
+        -H "Content-Type: applicatiion/json"
+        -X
         POST http://localhost:8080/api/predict
 
 requests endpoint:
     curl  http://localhost:8080/api/requests/1
 """
 
-
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 
-from app.api.contracts import IntentRequest, IntentResponse, ReadyResponse
+from app.api.contracts import IntentRequest, IntentResponse
 from app.api.load_model import load_model, load_tags
 
 app = FastAPI()
@@ -37,8 +36,6 @@ app = FastAPI()
 
 models = {}
 model_tags = {}
-
-from fastapi import FastAPI
 
 
 @asynccontextmanager
@@ -50,7 +47,7 @@ async def lifespan(
     stays open for as longs as the server is up
     """
     # Load the ML model, the methods are can handle exceptions
-    #TODO: Choose top n from docker manifest file
+    # TODO: Choose top n from docker manifest file
     models["intent_classifier"] = load_model(top_n=3)
     model_tags["intent_classifier_tags"] = load_tags()
 
@@ -63,11 +60,6 @@ async def lifespan(
 app = FastAPI(lifespan=lifespan)
 
 
-@app.get("/api/ready", response_model=ReadyResponse)
-async def ready() -> ReadyResponse:
-    return ReadyResponse(ready="OK")
-
-
 @app.post("/api/intent", response_model=IntentResponse)
 async def intent(
     request_payload: IntentRequest,
@@ -77,7 +69,7 @@ async def intent(
     """
 
     # NOTE: Here We would want to log a few things asynchronously:
-    # 1) log invocations input and output to a table (training from invocations avoids feature parity w.r.t downstream etl tasks)
+    # 1) log invocations input and output to a table to avoid feature disparity in training
     # 2) log the invocation time and latency and log it to a table
     # 3) log a request  has and the model tags for tracability of the request
 

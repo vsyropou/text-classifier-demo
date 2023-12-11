@@ -13,11 +13,7 @@ from nltk.corpus import stopwords
 
 
 def remove_stopwords(data: Iterable[str], stopwords=set[str]) -> list[str]:
-    return list(
-        map(
-            lambda x: " ".join([wrd for wrd in x.split() if wrd not in stopwords]), data
-        )
-    )
+    return list(map(lambda x: " ".join([wrd for wrd in x.split() if wrd not in stopwords]), data))
 
 
 def remove_digits(data: Iterable[str]) -> list[str]:
@@ -38,7 +34,7 @@ def preprocessor(
     for language in stopwords_languages:
         try:
             words = stopwords.words(language)
-        except LookupError as err:
+        except LookupError:
             logging.warn("stopwords module from nltk seems to be missing, installing")
             nltk.download("stopwords")
             words = stopwords.words(language)
@@ -59,7 +55,7 @@ def order_labels(data: Iterable[int], seperator: str = "+") -> np.array:
     Splits labels, orders them alhpabetically and then re joins them
     """
     ordered = np.array([f"{seperator}".join(sorted(x.split(seperator))) for x in data])
-    logging.info(f"Orddering combined categories")
+    logging.info("Orddering combined categories")
     return ordered
 
 
@@ -73,14 +69,12 @@ def inverse_propensity_weights(data: np.array) -> np.array:
     """
     counts = dict(zip(*np.unique(data, return_counts=True)))
 
-    logging.info(f"These are the label counts in the data:")
+    logging.info("These are the label counts in the data:")
     pprint(counts)
 
-    mapping = dict(
-        map(lambda it: (it[0], 1.0 / it[1] if it[1] != 0 else 0.0), counts.items())
-    )
+    mapping = dict(map(lambda it: (it[0], 1.0 / it[1] if it[1] != 0 else 0.0), counts.items()))
 
-    logging.info(f"Here are the inverse propensity weights:")
+    logging.info("Here are the inverse propensity weights:")
     pprint(mapping)
 
     return np.array(list(map(lambda x: mapping[x], data)))

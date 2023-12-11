@@ -48,12 +48,14 @@ class KerasConvolutionalBuilder(IModelBuilder, BaseModel):
 
             Inputs:
 
-                input_layers_specs: A list of the specs of each keras layer. The specs format maps 1-1 with the kers layer signatures
+                input_layers_specs: A list of the specs of each keras layer. The specs format
+                    maps 1-1 with the kers layer signatures
                 outpput_layer_specs: Same as input but for the output
                 optimizer_specs: arguments provied to the keras optimizer class
                 loss_specs: arguments provided to the keras loss class
                 weights: weights to be used for weighting the loss and metrics during training
-                embedings_layer: keras embedings layer, if not provided an input layer is used instead
+                embedings_layer: keras embedings layer, if not provided an input layer is used
+                    instead
 
             Example:
                 builder_instance.build(

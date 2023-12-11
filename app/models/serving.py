@@ -9,8 +9,8 @@ import numpy as np
 from numba import jit
 from pydantic import BaseModel, ConfigDict
 
-from app.preprocessing.label_encoder import PrimeLabelEncoder
 from app.models.base import Model
+from app.preprocessing.label_encoder import PrimeLabelEncoder
 from app.preprocessing.tokenization import ITokentizer
 
 
@@ -47,7 +47,7 @@ class ServingModel(IServingModel):
         return [{"label": lbl, "confidence": cnf} for (lbl, cnf) in intents]
 
 
-class BatchServingModel():
+class BatchServingModel:
     @jit
     def patch_predict(self, model_input: [str]):
         return np.array([self.predict(x) for x in model_input])

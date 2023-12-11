@@ -10,9 +10,7 @@ import numpy as np
 # NOTE: This functions work in progress. Not suited for any production purposes.
 
 
-def learning_curve(
-    train_lc: Iterable[float], test_lc: Iterable[float], name: str
-) -> Callable:
+def learning_curve(train_lc: Iterable[float], test_lc: Iterable[float], name: str) -> Callable:
     x = np.arange(1, len(train_lc) + 1)
 
     fig = plt.figure(figsize=(10, 6))

@@ -1,10 +1,10 @@
 """Here we define some cli arguments that our main workflow apps can use.
 
-Examples: 
+Examples:
 
-    'python app/train_model.py' 
+    'python app/train_model.py'
         trains a random forest model w/o replacing the principal model
-    'python app/model.py --replace-principal --tune' 
+    'python app/model.py --replace-principal --tune'
         trains and tunes the model and updates the model
 
 """
@@ -17,15 +17,11 @@ load_dotenv()
 
 
 def parse_cli_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(
-        prog="FluxCapasitor", description="Correlates Quantum States"
-    )
+    parser = argparse.ArgumentParser(prog="FluxCapasitor", description="Correlates Quantum States")
 
     # define cli arguments
     parser.add_argument("--tune", action="store_true", help="turn tuning on/off")
-    parser.add_argument(
-        "--use-tensorboard", action="store_true", help="use tensorboard"
-    )
+    parser.add_argument("--use-tensorboard", action="store_true", help="use tensorboard")
     parser.add_argument(
         "--replace-principal",
         action="store_true",

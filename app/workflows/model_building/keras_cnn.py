@@ -6,11 +6,16 @@ Workflows group together fucntion calls and handles the artifacts persisstense
 import importlib
 from typing import Optional
 
-from app.preprocessing import tokenization
 from app.artifactory import LocalArtifactory
 from app.conf import WorkflowConf
-from app.preprocessing.embedings import build_embedings_matrix_from_glove, embedings_layer_keras
 from app.models.cnn import KerasConvolutionalBuilder
+from app.preprocessing import tokenization
+from app.preprocessing.embedings import (
+    build_embedings_matrix_from_glove,
+    embedings_layer_keras,
+)
+
+# TODO: Workflow context gets local variables and perisists them automatically.
 
 
 def workflow_keras_glove_builder(
@@ -48,9 +53,7 @@ def workflow_keras_glove_builder(
     # Lack of time. TODO: trainer functions loads the correct model
     models_module = importlib.import_module(cnf.training_module)
 
-    model_builder: KerasConvolutionalBuilder = getattr(
-        models_module, cnf.builder_class
-    )(
+    model_builder: KerasConvolutionalBuilder = getattr(models_module, cnf.builder_class)(
         input_dim=len(tokenizer.word_index) + 1,
         input_length=cnf.max_sequence_length,
         n_target_classes=len(labels_train[0]),

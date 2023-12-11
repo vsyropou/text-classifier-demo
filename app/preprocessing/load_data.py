@@ -1,9 +1,6 @@
 """Here we keep functions that we use to load and split data"""
 
-# TODO: iterator typehint
-# TODO: validate types
 from pathlib import Path
-from typing import Iterator
 
 import pandas as pd
 
@@ -40,9 +37,10 @@ def read_and_reshuffle_data(
     seed: int = 678,
 ) -> pd.DataFrame:
     """
-    Reads both train and test files, concatenates them together and does a stratified
-    sampling based on the target column. The split ratio is specified by 'train_test_split'.
-    This is to ensure that the labes during training and testing overlap
+    Reads both train and test files, concatenates them together and does a
+    stratified sampling based on the target column. The split ratio is
+    specified by 'train_test_split'. This is to ensure that the labes during
+    training and testing overlap
     """
 
     data = pd.concat(
@@ -56,9 +54,7 @@ def read_and_reshuffle_data(
         ]
     ).reset_index()
 
-    train_data = data.groupby(target_feature).sample(
-        frac=train_test_split, random_state=seed
-    )
+    train_data = data.groupby(target_feature).sample(frac=train_test_split, random_state=seed)
 
     test_data = data.loc[data.index.difference(train_data.index)]
 

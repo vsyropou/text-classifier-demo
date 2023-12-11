@@ -3,16 +3,13 @@ Here we keep the trainer functions. They take a model train and parse the triani
 """
 
 import numpy as np
+import pandas as pd
 from dotenv import load_dotenv
 
 from app.models.base import Model
+from app.models.callbacks import tensorboard_callback
 
 load_dotenv()
-
-import pandas as pd
-
-from app.models.base import Model
-from app.models.callbacks import tensorboard_callback
 
 
 def train_model(
@@ -38,9 +35,7 @@ def train_model(
     history = pd.DataFrame(history.history)
 
     test_history: pd.DataFrame = history[[c for c in history.columns if "val" in c]]
-    train_history: pd.DataFrame = history[
-        [c for c in history.columns if "val" not in c]
-    ]
+    train_history: pd.DataFrame = history[[c for c in history.columns if "val" not in c]]
 
     test_metrics = test_history.to_records().tolist()
     train_metrics = train_history.to_records().tolist()

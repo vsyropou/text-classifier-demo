@@ -3,15 +3,15 @@ Keras cnn with tfidf embedings workflow.
 Workflows group together fucntion calls and handles the artifacts persisstense
 """
 
-#NOTE: This is work inprogress, features might not work properly
+# NOTE: This is work inprogress, features might not work properly
 
 import importlib
 from typing import Optional
 
 from app.artifactory import LocalArtifactory
 from app.conf import WorkflowConf
-from app.preprocessing.embedings import TfIdfEncoder
 from app.models.cnn import KerasConvolutionalBuilder
+from app.preprocessing.embedings import TfIdfEncoder
 
 
 def workflow_keras_tfidf_builder(
@@ -32,9 +32,7 @@ def workflow_keras_tfidf_builder(
     # Lack of time. TODO: trainer functions loads the correct model
     models_module = importlib.import_module(cnf.training_module)
 
-    model_builder: KerasConvolutionalBuilder = getattr(
-        models_module, cnf.builder_class
-    )(
+    model_builder: KerasConvolutionalBuilder = getattr(models_module, cnf.builder_class)(
         input_dim=10,
         input_length=cnf.max_sequence_length,
         n_target_classes=len(labels_train[0]),

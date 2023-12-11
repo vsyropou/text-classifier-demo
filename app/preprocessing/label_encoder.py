@@ -53,18 +53,6 @@ class PrimeLabelEncoder(ILabelEncoder, BaseModel):
         ]
     """
 
-    # @property
-    # def mapping(self) -> dict[str, int]:
-    #     return self.mapping
-
-    # @property
-    # def max_dim(self) -> str:
-    #     return self.max_dim
-
-    # @property
-    # def max_prime_categories(self) -> int:
-    #     return self.prime_categories
-
     def fit(self, data: Iterable[int], seperator: str = "+") -> None:
         combined_categories = list(map(lambda x: x.split(seperator), set(data)))
         prime_categories = set([prime for c in combined_categories for prime in c])

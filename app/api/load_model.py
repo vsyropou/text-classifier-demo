@@ -5,7 +5,6 @@ Here we keep funcitons to aid the api with serving the model and keep its code c
 
 import os
 from functools import partial
-from typing import Any
 
 import cloudpickle
 from dotenv import load_dotenv
@@ -33,9 +32,7 @@ def _load_with_exception(path: str) -> ServingModel | dict:
         raise HTTPException(status_code=500, detail=detail) from err
 
 
-def _predict_with_exception(
-    model: ServingModel, model_input: str, top_n: int = 3
-) -> float:
+def _predict_with_exception(model: ServingModel, model_input: str, top_n: int = 3) -> float:
     """
     Predict "wrapper" that throws an http exeption in case of an error
 
@@ -66,7 +63,7 @@ def test_model(model: ServingModel):
             "label": "INTERNAL_ERROR",
             "message": f"Loaded model fails to evaluate; This should not happen; {err.args} ",
         }
-        raise HTTPException(status_code=500, detail="") from err
+        raise HTTPException(status_code=500, detail=detail) from err
 
 
 def load_model(top_n: int) -> ServingModel:

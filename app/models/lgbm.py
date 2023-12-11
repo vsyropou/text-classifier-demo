@@ -6,7 +6,7 @@ from pydantic import BaseModel
 
 from app.models.base import IModelBuilder
 
-# NOTE: This is work in progress. Dont consider this as finished
+# NOTE: work in progress.
 
 
 class LGBMRegressor(IModelBuilder, BaseModel):

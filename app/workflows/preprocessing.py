@@ -6,15 +6,12 @@ Workflows group together fucntion calls and handles the artifacts persisstense
 from functools import partial
 from typing import Optional
 
-
 from app.artifactory import LocalArtifactory
 from app.conf import WorkflowConf
-
 from app.preprocessing.label_encoder import PrimeLabelEncoder
 from app.preprocessing.load_data import read_and_reshuffle_data
 from app.preprocessing.preprocess_data import inverse_propensity_weights, order_labels
 from app.preprocessing.preprocess_data import preprocessor as data_preprocessor
-
 
 
 def workflow_preposesing(
@@ -27,10 +24,7 @@ def workflow_preposesing(
     Handles reading and persisting of artifacts
     """
 
-    # reshufle
-    # NOTE: I foudn out that the intents were not equally repesented in both training
-    # and test splits. Since I probably do nto have time to build a zero shot classifier
-    # I will reshuffle and go one with building a pipeline
+    # NOTE: Intents were not equally repesented in both sets reshuffling
 
     train_data, test_data = read_and_reshuffle_data(
         train_data_path=cnf.train_data_path,
@@ -39,7 +33,7 @@ def workflow_preposesing(
         feature_names=cnf.feature_names,
         target_feature=cnf.target_feature,
         train_test_split=cnf.train_test_split,
-        seed = cnf.seed
+        seed=cnf.seed,
     )
 
     x_train = train_data[cnf.feature_names].values[:, 0]
