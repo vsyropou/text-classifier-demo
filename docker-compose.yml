@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: .
+    volumes:
+      - ./storage:/app/storage
+    ports:
+      - 8080:8080
+
+  test:
+    build:
+      context: .
+      args:
+        - INSTALL_DEV=true
+    volumes:
+      - ./storage:/app/storage
+    command: "pytest"
+
+  train:
+    build:
+      context: .
+    volumes:
+      - ./storage:/app/storage
+    command: "python app/runners/train_model_runner.py --replace-principal --epochs 20"
