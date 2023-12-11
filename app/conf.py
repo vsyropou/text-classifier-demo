@@ -24,6 +24,7 @@ load_dotenv()
 
 # TODO: This configurations class deserves a bit more tidying up / refactoring
 
+
 class WorkflowConf(BaseModel):
     model_config = ConfigDict(frozen=True)
     # TODO:  frozen does not work as I remmeber, plus arguments can be mutated some times
@@ -43,6 +44,7 @@ class WorkflowConf(BaseModel):
     test_data_path: str = Field(
         default=Path(os.environ["DATA_PATH"]) / Path("test.tsv"), forzen=True
     )
+    hg_dataset_name: str = "fathyshalab/atis_intents"
     train_test_split: float = Field(default=0.7, frozen=True)
 
     load_data_csv_seperator: str = Field(default="\t", frozen=True)
