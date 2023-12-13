@@ -1,6 +1,6 @@
 ## Scope
 
-This is a text classifier. This repo is a portfolio item to showcase my ml ops skills.
+This is a text classifier. This repo is a portfolio item to showcase my common coding skills.
 
 
 ## In a nutshell
