@@ -1,27 +1,39 @@
 ## Scope
 
-This is a text classifier of the atis intent dataset:
+This is a text classifier. This repo is a portfolio item to showcase my ml ops skills.
 
-see
 
-This is a repo demonstrates my coding practices that I use every day at my work.
+## In a nutshell
+Given a raw text and a label it will train a CNN to predict the label.
 
+Main features:
+ - Extendible to any model class.
+ - Felxible workflow code execution. 
+ - Includes an api to serve the model.
+ - Includes test.
+ - Containerzes the training and serving.
 
 ## How you can run things
 
-From within the top repo directory run:
+The dataset can be provided locally or streamed and cached from huggingface.
+
+Check in `app/conf.py`
+For local datasets you need to set: ``train_data_path`` and `test_data_path`
+For huggingface just se the `hg_dataset_name`
+
+To get embedings run the following from the top repo directory:
  ```bash
    make get_embedings
  ```
- If this fails don't worry there are buck up light weight embedings
+This will download the lightest glove embedings in order to start developing
 
- In order to train a model and serve it you need to do:
-
+To setup the app you need to have poetry installed.
  ```bash
  make setup
  poetry shell
- ``` 
- Followed by:
+ ```
+
+To train the model:
 
  ```bash
  python app/train_model.py --replace-principal --epochs 20 
@@ -49,7 +61,7 @@ curl -X 'POST' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
-  "text": "What is the ultimate intent of life"
+  "text": "What am I doing here"
 }'
 ```
 If you would like to see tensorboard (only applicable with keras components for now)first run the following:

@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "atis-intent-classifier"
+name = "text-classifier"
 version = "0.1.0"
-description = "atis intent classifier"
+description = "text classifier"
 authors = ["vasilis <vsyropou5@gmail.com>"]
 readme = "README.md"
 packages = [{include = "app"}]
